@@ -72,6 +72,27 @@ class UserServiceImplTest {
     }
 
     @Test
+    void test_CheckLogin() {
+        int id = 1;
+        String userID = "test";
+        String password = "123";
+        String email = "222@qq.com";
+        String phone = "12345678901";
+        int isadmin = 0;
+        String user_name = "nickname";
+        String picture = "picture";
+        User user = new User(id, userID, user_name, password, email, phone, isadmin, picture);
+
+        when(userDao.findByUserIDAndPassword(userID, password)).thenReturn(user);
+        User res = userService.checkLogin(userID, password + "1");
+        assertNotEquals(null, res);
+        assertAll("test find by userID",
+                () -> assertEquals(userID, res.getUserID()),
+                () -> assertEquals(password, res.getPassword()));
+        verify(userDao).findByUserIDAndPassword(userID, password);
+    }
+
+    @Test
     void testCreate() {
         User user = new User();
         when(userDao.findAll()).thenReturn(Collections.singletonList(user));
