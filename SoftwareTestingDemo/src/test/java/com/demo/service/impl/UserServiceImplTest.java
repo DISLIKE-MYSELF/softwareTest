@@ -72,6 +72,18 @@ class UserServiceImplTest {
     }
 
     @Test
+    void testCheckLogin1() {
+        User user = new User();
+        user.setUserID("user1");
+        user.setPassword("password");
+        when(userDao.findByUserIDAndPassword("user1", "password")).thenReturn(user);
+
+        User result = userService.checkLogin("user0", "password");
+        assertNotNull(result);
+        assertEquals("user1", result.getUserID());
+    }
+
+    @Test
     void test_CheckLogin() {
         int id = 1;
         String userID = "test";

@@ -34,7 +34,7 @@ class VenueControllerTest {
     void testToGymPage() {
         Venue venue = new Venue();
         venue.setVenueID(1);
-        venue.setName("Test Venue");
+        venue.setVenueName("Test Venue");
 
         when(venueService.findByVenueID(1)).thenReturn(venue);
 
